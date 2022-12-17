@@ -1,0 +1,35 @@
+Q1.
+Server:
+Virtual Box -> Create 2 Network Adapters .
+PFSense -> Set both adapters as 'Bridged Adapter'.
+
+1. Type ip address from pfsense into browser.
+2. Login to pfsense (user: admin password: pfsense)
+3. Setup pfsense -> ok ok ok ok ok ok ok ok ok
+4. Hamburger menu -> Services -> DNS Resolver -> Host override
+5. Enter xaviers and edu.in and the ip of the destination from bitnami.
+
+Client:
+1. Run bitnami wordpress server (make sure network adapter = bridged)
+2. Run ubuntu (make sure network adapter = bridged)
+3. Enter xaviers.edu in browser.
+
+Q2.
+Server:
+Virtual Box -> Create 3 Network Adapters.
+PFSense -> Set 1st adapter as 'NAT'
+	   Set 2nd adapter as 'Host Only'
+	   Set 3rd adapter as 'Bridged Adapter'
+
+1. Type ip address from pfsense into browser.
+2. Login to pfsense (user: admin password: pfsense)
+3. Hamburger menu -> Interfaces -> Assignments -> Add (Created a new interface: OPT1)
+4. Hamburger menu -> Interfaces -> OPT1 -> Enable -> scroll down, ipv4 - choose: static -> Add ip address (192.169.2.1), subnet mask - 24 -> save changes
+5. Hamburger menu -> Services -> dhcp server -> OPT1 -> scroll down, range -> add-range -> 192.168.3.4 - 192.168.3.254 -> save
+6. Firewall -> rules -> lan -> copy ethernet rules (ipv4 and ipv6) -> Change lan to opt1 -> save and apply changes
+
+Client:
+Connect to pfsense in browser (Should use internet of the server).
+
+To access pfsense use 192.168.1.1 and 192.168.2.1
+
